@@ -1,5 +1,5 @@
 # Build stage
-FROM golang:1.22-alpine AS builder
+FROM golang:1.24.0-alpine AS builder
 
 # Install build dependencies for go-sqlite3 (CGO)
 RUN apk add --no-cache gcc musl-dev
@@ -8,7 +8,7 @@ WORKDIR /app
 
 # Copy go mod and sum files
 COPY go.mod go.sum ./
-RUN go mod download
+RUN go mod tidy
 
 # Copy source code
 COPY . .
